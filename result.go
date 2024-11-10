@@ -19,3 +19,28 @@ func (res Result[T]) Val() T {
 func (res Result[T]) Err() error {
 	return res.err
 }
+
+func (res Result[T]) Unwrap() (T, error) {
+	return res.val, res.err
+}
+
+func Val[T any](val T) Result[T] {
+	return Result[T]{
+		val: val,
+		err: nil,
+	}
+}
+
+func Err[T any](err error) Result[T] {
+	return Result[T]{
+		val: *new(T),
+		err: err,
+	}
+}
+
+func Wrap[T any](val T, err error) Result[T] {
+	return Result[T]{
+		val: val,
+		err: err,
+	}
+}
